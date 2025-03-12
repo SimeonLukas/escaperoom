@@ -1,0 +1,30 @@
+name: Generate Binary for Linux
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: 😀 build Binary
+      run: cargo build --release
+    - name: 🎉 save Binary
+      uses: actions/upload-artifact@v4
+      with:
+          name: release
+          path: ./target/release/escaperoom
+    - name: 📄 rename File
+      run: zip ./target/release/Linux.zip ./target/release/escaperoom
+    - name: 📄 add to Release
+      uses: softprops/action-gh-release@v1
+      with:
+          files: ./target/release/Linux.zip
