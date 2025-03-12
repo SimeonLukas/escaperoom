@@ -23,6 +23,6 @@ jobs:
           name: release
           path: ./target/release/escaperoom.exe
     - name: 📄 add to Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2.2.1
       with:
           files: ./target/release/escaperoom.exe
